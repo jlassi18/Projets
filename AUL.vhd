@@ -1,0 +1,30 @@
+library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+use IEEE.numeric_std.all;
+use IEEE.std_logic_unsigned.all;
+use IEEE.NUMERIC_STD.ALL;
+entity AUL is
+    Port ( A : in  STD_LOGIC_VECTOR (15 downto 0);
+           B : in  STD_LOGIC_VECTOR (15 downto 0);
+           AULFS : in  STD_LOGIC_VECTOR (3 downto 0);
+           S : out  STD_LOGIC_VECTOR (15 downto 0));
+end AUL;
+
+architecture Architecture_AUL of AUL is
+
+begin
+	process(AULFS, A, B)
+		begin
+			case AULFS is
+				when "0000" => S <= B;
+				when "0001" => S <= A + not B;
+				when "0010" => S <= A + B;
+				when "0011" => S <= B + "0000000000000001";
+				when "0100" => S <= A and B;
+				when "0101" => S <= A or B;
+				when others => S <= A xor B;
+			end case;
+		end process;
+
+end Architecture_AUL;
+
